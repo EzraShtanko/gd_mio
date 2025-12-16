@@ -1,4 +1,4 @@
-@icon("uid://cvt8v1vehfqki")
+@icon("uid://w30nh5l3gsq3")
 @tool
 class_name CustomConsolePrinter
 extends Resource
