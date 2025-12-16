@@ -1,6 +1,7 @@
 class_name mio
 extends RefCounted
 
+
 class Reconfig extends RefCounted:
 	var flag_dated: bool = true
 	func post() -> void: flag_dated = true
@@ -24,8 +25,13 @@ class SmoothVector2 extends  RefCounted:
 	var actual: Vector2 = Vector2.ZERO
 	var drag: float = 0.2
 	var deadzone: float = 0.05
-	func _init(t: Vector2 = Vector2.ZERO, a: Vector2 = Vector2.ZERO, d: float = 0.2, z: float = 0.05): target = t; actual = a; drag = d; deadzone = z
-	func process(delta: float) -> void: actual = lerp(actual, target, delta / drag) if (actual - target).length() > deadzone else target
+	func _init(t: Vector2 = Vector2.ZERO, a: Vector2 = Vector2.ZERO, d: float = 0.2, z: float = 0.05): 
+		target = t
+		actual = a 
+		drag = d
+		deadzone = z
+	func process(delta: float) -> void: 
+		actual = lerp(actual, target, delta / drag) if (actual - target).length() > deadzone else target
 
 class SmoothVector3 extends RefCounted:
 	var target: Vector3 = Vector3.ZERO
@@ -33,7 +39,8 @@ class SmoothVector3 extends RefCounted:
 	var drag: float = 0.2
 	var deadzone: float = 0.05
 	func _init(t: Vector3 = Vector3.ZERO, a: Vector3 = Vector3.ZERO, d: float = 0.2, z: float = 0.05): target = t; actual = a; drag = d; deadzone = z
-	func process(delta: float) -> void: actual = lerp(actual, target, delta / drag) if (actual - target).length() > deadzone else target
+	func process(delta: float) -> void: 
+		actual = lerp(actual, target, delta / drag) if (actual - target).length() > deadzone else target
 
 class SmoothFloat extends RefCounted:
 	var target: float = 0.
