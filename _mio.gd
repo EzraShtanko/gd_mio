@@ -77,3 +77,10 @@ static func gx(n: Node3D) -> Vector3: return n.global_transform.basis.x
 static func gy(n: Node3D) -> Vector3: return n.global_transform.basis.y
 static func gz(n: Node3D) -> Vector3: return n.global_transform.basis.z
 
+static func get_view_position(node: Node3D, view_res: Vector2 = Vector2.ZERO, camera: Camera3D = null) -> Vector2:
+	if camera:
+		if view_res.length() == 0.:		return camera.unproject_position(node.global_position)
+		else:							return camera.unproject_position(node.global_position) / view_res * Vector2(DisplayServer.window_get_size())
+	else:
+		if view_res.length() == 0.:		return node.get_viewport().get_camera_3d().unproject_position(node.global_position)
+		else:							return node.get_viewport().get_camera_3d().unproject_position(node.global_position) / view_res * Vector2(DisplayServer.window_get_size())
