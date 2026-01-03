@@ -9,10 +9,10 @@ extends Resource
 @export var suffix:		String 	= ""
 @export var padding: 	int 	= 16
 @export_enum(
-	"light_gray",	"red",		"orange",		"yellow",		"lime",
-	"cyan",			"turquoise",	"crimson",		"gold",			"salmon",
-	"green",		"pink",			"violet",		"silver",		"white"
-) var color:		String  = "lightgray"
+	"light_gray",	"red",			"orange",		"yellow",		"lime",
+	"cyan",			"turquoise",		"crimson",		"gold",			"salmon",
+	"green",			"pink",			"violet",		"silver",		"white"
+) var color		: String  = "lightgray"
 @export var flag_bold:	bool 			= false
 
 @export_tool_button("Print Test Message", "Node") var run_print_test_message: Callable = func () :
