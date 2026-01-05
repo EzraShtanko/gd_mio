@@ -1,4 +1,4 @@
-@icon("uid://w30nh5l3gsq3")
+@icon("res://global/mio/img/img_Icon_CustomConsolePrinter_32x32px.png")
 @tool
 class_name CustomConsolePrinter
 extends Resource
