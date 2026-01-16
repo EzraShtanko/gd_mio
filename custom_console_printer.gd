@@ -33,10 +33,11 @@ func headline() -> String:
 	h = h.rpad(clamp(padding - 3, 0, 256))
 	return "%s : " % h
 
-func log_ok(line: String) -> void:		print_rich("%s[color=lime]-V- %s[/color]" 			% [headline(), line])
-func log_oh(line: String) -> void:		print_rich("%s[color=light_gray]-i- %s[/color]" 		% [headline(), line])
-func log_ew(line: String) -> void:		print_rich("%s[color=orange]<!> %s[/color]" 			% [headline(), line])
-func log_fu(line: String) -> void:		print_rich("%s[color=crimson]=X= %s[/color]"			% [headline(), line])
+func log_ok(line: String, stash: bool = false) -> void:		print_rich("%s[color=lime]-V- %s[/color]" 		% [headline(), line]);	if stash: log_stash(line)
+func log_oh(line: String, stash: bool = false) -> void:		print_rich("%s[color=light_gray]-i- %s[/color]" 	% [headline(), line]);	if stash: log_stash(line)
+func log_ew(line: String, stash: bool = false) -> void:		print_rich("%s[color=orange]<!> %s[/color]" 		% [headline(), line]);	if stash: log_stash(line)
+func log_fu(line: String, stash: bool = false) -> void:		print_rich("%s[color=crimson]=X= %s[/color]"		% [headline(), line]);	if stash: log_stash(line)
+
 func log_stash(line: String) -> void:
 	stash_log.push_front(line)
 	while stash_log.size() > stash_log_size:	stash_log.pop_back()
