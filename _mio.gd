@@ -4,7 +4,8 @@ extends RefCounted
 
 class Reconfig extends RefCounted:
 	var flag_dated: bool = true
-	func post() -> void: flag_dated = true
+	var flags: Flag = Flag.new()
+	func post(x: int = 0x00) -> void: flag_dated = true; flags.post(x)
 	func process() -> void:
 		if flag_dated:
 			_process()
