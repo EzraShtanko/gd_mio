@@ -90,8 +90,8 @@ static func get_view_position(node: Node3D, view_res: Vector2 = Vector2.ZERO, ca
 
 static func grid_from_vec3(p: Vector3) -> Vector2i:
 	var r = Plane(Vector3.UP).project(p)
-	r.x = floori(r.x)
-	r.z = floori(r.z)
+	r.x = floor(r.x)
+	r.z = floor(r.z)
 	return Vector2i(r.x, r.z)
 
 
