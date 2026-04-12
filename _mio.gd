@@ -105,5 +105,5 @@ static func grid_line(p0: Vector2, p1: Vector2) -> Array:
 	var N = grid_diagonal_distance(p0, p1)
 	for i in N:
 		var t = 0. if N == 0 else i / N
-		points.push_back(roundi(lerp(p0, p1, t)))
+		points.push_back(round(lerp(p0, p1, t)))
 	return points
