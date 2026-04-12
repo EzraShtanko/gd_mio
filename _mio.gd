@@ -107,3 +107,10 @@ static func grid_line(p0: Vector2, p1: Vector2) -> Array:
 		var t = 0. if N == 0 else i / N
 		points.push_back(round(lerp(p0, p1, t)))
 	return points
+
+static func combine(a: Array, b: Array) -> Array:
+	var c := a.duplicate()
+	for i in b:
+		if not i in c:
+			c.push_back(i)
+	return c
