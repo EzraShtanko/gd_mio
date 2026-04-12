@@ -85,3 +85,17 @@ static func get_view_position(node: Node3D, view_res: Vector2 = Vector2.ZERO, ca
 	else:
 		if view_res.length() == 0.:		return node.get_viewport().get_camera_3d().unproject_position(node.global_position)
 		else:							return node.get_viewport().get_camera_3d().unproject_position(node.global_position) / view_res * Vector2(DisplayServer.window_get_size())
+
+
+func grid_diagonal_distance(p0: Vector2, p1: Vector2) -> float:
+	var dx: float = p1.x - p0.x
+	var dy: float = p1.y - p0.y
+	return absf(max(absf(dx), absf(dy)))
+
+func grid_line(p0: Vector2, p1: Vector2) -> PackedVector2Array:
+	var points = PackedVector2Array()
+	var N = grid_diagonal_distance(p0, p1)
+	for i in N:
+		var t = 0. if N == 0 else i / N
+		points.push_back(round(lerp(p0, p1, t)))
+	return points
