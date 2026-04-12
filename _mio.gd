@@ -87,15 +87,23 @@ static func get_view_position(node: Node3D, view_res: Vector2 = Vector2.ZERO, ca
 		else:							return node.get_viewport().get_camera_3d().unproject_position(node.global_position) / view_res * Vector2(DisplayServer.window_get_size())
 
 
-func grid_diagonal_distance(p0: Vector2, p1: Vector2) -> float:
+
+static func grid_from_vec3(p: Vector3) -> Vector2i:
+	var r = Plane(Vector3.UP).project(p)
+	r.x = snappedf(r.x, 1.)
+	r.z = snappedf(r.z, 1.)
+	return Vector2i(r.x, r.z)
+
+
+static func grid_diagonal_distance(p0: Vector2, p1: Vector2) -> float:
 	var dx: float = p1.x - p0.x
 	var dy: float = p1.y - p0.y
 	return absf(max(absf(dx), absf(dy)))
 
-func grid_line(p0: Vector2, p1: Vector2) -> PackedVector2Array:
-	var points = PackedVector2Array()
+static func grid_line(p0: Vector2, p1: Vector2) -> Array:
+	var points: Array[Vector2i] = []
 	var N = grid_diagonal_distance(p0, p1)
 	for i in N:
 		var t = 0. if N == 0 else i / N
-		points.push_back(round(lerp(p0, p1, t)))
+		points.push_back(roundi(lerp(p0, p1, t)))
 	return points
