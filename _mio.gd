@@ -73,6 +73,10 @@ class SmoothStepFloat extends RefCounted:
 				actual = target
 				progress = 0.
 
+#class SmoothStepVector3 extends RefCounted:
+	#var start		: Vector3 = 0.
+	#var target		: 
+
 static func strike_tween(t: Tween) -> void: if t: if t.is_valid(): t.kill()
 static func gx(n: Node3D) -> Vector3: return n.global_transform.basis.x
 static func gy(n: Node3D) -> Vector3: return n.global_transform.basis.y
@@ -114,3 +118,30 @@ static func combine(a: Array, b: Array) -> Array:
 		if not i in c:
 			c.push_back(i)
 	return c
+
+
+class MicroMachine extends RefCounted:
+	var owner		: Node
+	var current		: MicroState
+	var initial		: MicroState
+	func _init(n: Node) -> void: owner = n
+	
+	func switch_to(x: MicroState, params: Dictionary = {}) -> void:
+		if current:		current.release(params)
+		current = x
+		current.assume(params)
+	func process() -> void: if current: current._process()
+
+
+class MicroState extends RefCounted:
+	var machine		: MicroMachine
+	var buffer		: Dictionary = {}
+	var active		: bool = false
+	func _init(m: MicroMachine) -> void: 				machine = m
+	func overtake(params: Dictionary = {}) -> void:		machine.switch_to(self, params)
+	func assume(params: Dictionary = {}) -> void:		_assume(params); active = true
+	func _assume(_params: Dictionary = {}) -> void:		pass
+	func process() -> void:								if active: _process()
+	func _process() -> void:							pass
+	func release(params: Dictionary = {}) -> void:		active = false; _release(params)
+	func _release(_params: Dictionary = {}) -> void:	pass
