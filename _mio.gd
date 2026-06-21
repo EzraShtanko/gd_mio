@@ -10,6 +10,7 @@ class Reconfig extends RefCounted:
 		if flag_dated:
 			_process()
 			flag_dated = false
+			flags.reset()
 	func _process() -> void: pass
 
 class Stat extends RefCounted:
