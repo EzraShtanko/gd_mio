@@ -32,7 +32,7 @@ class SmoothVector2 extends  RefCounted:
 		drag = d
 		deadzone = z
 	func process(delta: float) -> void: 
-		actual = lerp(actual, target, delta / drag) if (actual - target).length() > deadzone else target
+		actual = lerp(actual, target, delta / (drag if drag > 0. else 1.)) if (actual - target).length() > deadzone else target
 
 class SmoothVector3 extends RefCounted:
 	var target: Vector3 = Vector3.ZERO
@@ -41,7 +41,7 @@ class SmoothVector3 extends RefCounted:
 	var deadzone: float = 0.05
 	func _init(t: Vector3 = Vector3.ZERO, a: Vector3 = Vector3.ZERO, d: float = 0.2, z: float = 0.05): target = t; actual = a; drag = d; deadzone = z
 	func process(delta: float) -> void: 
-		actual = lerp(actual, target, delta / drag) if (actual - target).length() > deadzone else target
+		actual = lerp(actual, target, delta / (drag if drag > 0. else 1.)) if (actual - target).length() > deadzone else target
 
 class SmoothFloat extends RefCounted:
 	var target: float = 0.
@@ -49,7 +49,7 @@ class SmoothFloat extends RefCounted:
 	var drag: float = 0.2
 	var deadzone: float = 0.005
 	func _init(t: float = 0., a: float = 0., d: float = 0.2, z: float = 0.05): target = t; actual = a; drag = d; deadzone = z
-	func process(delta: float) -> void: actual = lerp(actual, target, delta / drag) if abs(actual - target) > deadzone else target
+	func process(delta: float) -> void: actual = lerp(actual, target, delta / (drag if drag > 0. else 1.)) if abs(actual - target) > deadzone else target
 
 
 class SmoothStepFloat extends RefCounted:
