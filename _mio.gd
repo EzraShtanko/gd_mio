@@ -131,9 +131,9 @@ class MicroMachine extends RefCounted:
 		if current:		current.release(params)
 		current = x
 		current.assume(params)
-	func process() -> void: if current: current._process()
+	func process(delta: float = 0.016) -> void: if current: current.process(delta)
 
-
+@warning_ignore_start("unused_parameter")
 class MicroState extends RefCounted:
 	var machine		: MicroMachine
 	var buffer		: Dictionary = {}
@@ -141,8 +141,9 @@ class MicroState extends RefCounted:
 	func _init(m: MicroMachine) -> void: 				machine = m
 	func overtake(params: Dictionary = {}) -> void:		machine.switch_to(self, params)
 	func assume(params: Dictionary = {}) -> void:		_assume(params); active = true
-	func _assume(_params: Dictionary = {}) -> void:		pass
-	func process() -> void:								if active: _process()
-	func _process() -> void:							pass
+	func _assume(params: Dictionary = {}) -> void:		pass
+	func process(delta: float = 0.016) -> void:			if active: _process(delta)
+	func _process(delta: float = 0.016) -> void:		pass
 	func release(params: Dictionary = {}) -> void:		active = false; _release(params)
-	func _release(_params: Dictionary = {}) -> void:	pass
+	func _release(params: Dictionary = {}) -> void:		pass
+@warning_ignore_restore("unused_parameter")
