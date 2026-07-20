@@ -53,45 +53,6 @@ class SmoothFloat extends RefCounted:
 	func process(delta: float) -> void: actual = lerp(actual, target, delta / (drag if drag > 0. else 1.)) if abs(actual - target) > deadzone else target
 
 
-class SpringFloat extends RefCounted:
-
-	const DAMP_SCALE				: float = 500.
-	const ELASTICITY_SCALE 	: float = 200.
-
-	var target				: float = 0.
-	var actual				: float = 0.
-	
-	var value_now			: float = 0.
-	var value_old			: float = 0.
-
-	var delta_now			: float = 0.
-	var delta_old			: float = 0.
-
-	var velocity			: float = 0.
-	var delta_d				: float = 0.
-	var velocity_old	: float = 0.
-
-	var mass					: float = 1.
-	var elasticity		: float = 20.
-	var damp					: float = 10.
-
-	var deadzone			: float = 0.0001
-
-	func process(delta: float) -> void: 
-		delta_now = target - actual
-		delta_d = delta_now - delta_old
-
-		var v_damp: float = -delta_d * damp * DAMP_SCALE
-		var v_force: float	= -elasticity * delta_now - v_damp
-
-		velocity += v_force / mass
-
-		actual += velocity
-		
-
-		delta_old = delta_now
-		velocity_old = delta_d
-		pass
 
 
 class SmoothStepFloat extends RefCounted:
